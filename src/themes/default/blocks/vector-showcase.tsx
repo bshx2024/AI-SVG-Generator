@@ -25,3 +25,4 @@ export function VectorShowcaseBlock({
 
 // Export both PascalCase and alias for theme loader
 export { VectorShowcaseBlock as VectorShowcase };
+
