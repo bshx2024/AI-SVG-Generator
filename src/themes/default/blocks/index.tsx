@@ -4,6 +4,7 @@ export * from './footer';
 
 export * from './hero';
 export * from './svg-studio';
+export * from './vector-showcase';
 
 export * from './features';
 export * from './features-list';

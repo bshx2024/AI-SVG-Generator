@@ -3,6 +3,7 @@
     "show_sections": [
       "hero",
       "svg-studio",
+      "vector-showcase",
       "benefits",
       "features",
       "stats",
@@ -44,6 +45,10 @@
       "svg-studio": {
         "id": "svg-studio",
         "block": "svg-studio"
+      },
+      "vector-showcase": {
+        "id": "vector-showcase",
+        "block": "vector-showcase"
       },
       "benefits": {
         "block": "features-accordion",
