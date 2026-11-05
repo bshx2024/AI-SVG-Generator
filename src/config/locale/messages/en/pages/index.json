@@ -1,0 +1,198 @@
+{
+  "page": {
+    "show_sections": [
+      "hero",
+      "svg-studio",
+      "benefits",
+      "features",
+      "stats",
+      "faq",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "title": "Free AI SVG Generator: Clean, Low-Node Vectors for Cricut & Web",
+        "highlight_text": "AI SVG Generator",
+        "description": "Transform text prompts and PNG/JPG images into production-ready SVGs.<br/><strong>Zero Node Soup</strong> • 100% strictly closed paths for cutting machines • Clean React JSX for developers.",
+        "announcement": {
+          "badge": "Free Trial",
+          "title": "⚡ Try Free Online • No Sign-Up Required",
+          "url": "#svg-studio"
+        },
+        "tip": "🎁 Free 2 conversions per day, no credit card or account needed",
+        "buttons": [
+          {
+            "title": "Start Creating Free",
+            "icon": "Sparkles",
+            "url": "#svg-studio",
+            "target": "_self",
+            "variant": "default"
+          },
+          {
+            "title": "View Pricing",
+            "icon": "Zap",
+            "url": "/pricing",
+            "target": "_self",
+            "variant": "outline"
+          }
+        ],
+        "show_avatars": true,
+        "avatars_tip": "Loved by 8,500+ Cricut crafters, Etsy sellers & indie developers",
+        "show_award": false
+      },
+      "svg-studio": {
+        "id": "svg-studio",
+        "block": "svg-studio"
+      },
+      "benefits": {
+        "block": "features-accordion",
+        "id": "benefits",
+        "title": "Why Crafters & Developers Choose Us",
+        "label": "Engineering Breakthrough",
+        "description": "Most AI tools generate pixel images or messy 'node soup'. We built a true geometric vector engine.",
+        "items": [
+          {
+            "title": "Zero 'Node Soup' (85% Fewer Anchors)",
+            "description": "Standard auto-trace tools generate 5,000+ chaotic points that freeze Cricut Design Space. Our RDP curve-fitting reduces anchors to under 120 while keeping curves razor-sharp.",
+            "icon": "RiScissorsCutLine",
+            "image": {
+              "src": "/imgs/features/user-billing.png",
+              "alt": "clean nodes"
+            }
+          },
+          {
+            "title": "100% Closed Toolpaths for Cutting Machines",
+            "description": "Physical laser heads and vinyl blades need continuous closed loops (Z-command). We automatically eliminate self-intersecting loops so your materials are never ruined.",
+            "icon": "RiShapesLine",
+            "image": {
+              "src": "/imgs/features/admin-settings.png",
+              "alt": "cut ready"
+            }
+          },
+          {
+            "title": "Automatic Color Layer Separation",
+            "description": "Multi-color heat transfer and vinyl stickers require distinct color sheets. Our engine groups paths by color into clean Compound Paths ready for Cricut Design Space.",
+            "icon": "RiStackLine",
+            "image": {
+              "src": "/imgs/features/landing-page.png",
+              "alt": "layer separation"
+            }
+          }
+        ]
+      },
+      "features": {
+        "id": "features",
+        "title": "Purpose-Built for Real-World Workflows",
+        "description": "Whether you are selling SVG bundles on Etsy or building a React landing page, we have you covered.",
+        "items": [
+          {
+            "title": "Text to Clean Vector",
+            "description": "Describe your concept in plain English. Get back clean geometric outlines, vintage badges, or flat illustrations.",
+            "icon": "RiSparklingFill"
+          },
+          {
+            "title": "PNG to SVG Vectorizer",
+            "description": "Upload customer sketches, Midjourney rasters, or low-res logos. Auto-eliminates anti-aliased blur.",
+            "icon": "RiImageAddFill"
+          },
+          {
+            "title": "Physical Trapping Offset",
+            "description": "Adds 0.2mm - 0.5mm choke tolerance between adjacent colors, preventing white gaps during heat pressing.",
+            "icon": "RiLayoutRowLine"
+          },
+          {
+            "title": "React & JSX Ready",
+            "description": "One-click copy clean semantic JSX code with currentColor fill, ideal for TailwindCSS and UI design systems.",
+            "icon": "RiCodeBoxLine"
+          },
+          {
+            "title": "Commercial Rights Included",
+            "description": "Exported vectors come with unrestricted commercial license for Etsy, Print-on-Demand, and client work.",
+            "icon": "RiShieldCheckLine"
+          },
+          {
+            "title": "Instant Browser Preview",
+            "description": "Test smoothness sliders and toggle individual color layers live in your browser before exporting.",
+            "icon": "RiEyeLine"
+          }
+        ]
+      },
+      "stats": {
+        "id": "stats",
+        "title": "Built for High-Precision Performance",
+        "description": "Numbers that make cutting machines and web browsers happy.",
+        "items": [
+          {
+            "title": "85%",
+            "description": "Average reduction in path anchor points"
+          },
+          {
+            "title": "100%",
+            "description": "Strictly closed paths with Z-flag"
+          },
+          {
+            "title": "<3 KB",
+            "description": "Ultra-lightweight Web SVG bundle size"
+          },
+          {
+            "title": "0s",
+            "description": "Registration wait time for free trial"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "title": "Frequently Asked Questions",
+        "description": "Everything you need to know about AI SVG Generator.",
+        "items": [
+          {
+            "question": "Is this AI SVG generator really free with no sign up?",
+            "answer": "Yes! You can generate, vectorize, and preview vector files directly in your browser without creating an account or entering a credit card. Free users get 2 full exports daily, with full interactive canvas access."
+          },
+          {
+            "question": "How does this prevent 'node soup' for Cricut and laser cutters?",
+            "answer": "Traditional tracing tools (like Inkscape Trace Bitmap) blindly follow anti-aliased pixels, generating thousands of chaotic anchor points that freeze Cricut Design Space. Our engine uses Ramer-Douglas-Peucker (RDP) curve-fitting algorithms to streamline paths down to under 120 smooth nodes."
+          },
+          {
+            "question": "Can I convert my existing PNG, JPG, or WebP images to SVG?",
+            "answer": "Yes. Switch to the 'PNG to SVG' tab on the studio canvas to upload any raster artwork, customer sketch, or Midjourney image. The AI cleans up fuzzy edges and extracts true Bézier curves."
+          },
+          {
+            "question": "Does it support layered SVGs for multi-color vinyl cutting?",
+            "answer": "Yes. The engine automatically clusters colors and groups paths into separate compound paths by color. You can toggle each layer on/off, change colors with the picker, and import cleanly into Cricut Design Space."
+          },
+          {
+            "question": "Can I use the exported SVGs commercially on Etsy or Print-on-Demand?",
+            "answer": "Yes. All SVGs generated through AI SVG Generator include full commercial rights for Etsy SVG bundles, physical vinyl crafts, POD apparel (Printful, Printify), and digital client deliverables."
+          },
+          {
+            "question": "Why is this better than Adobe Illustrator Image Trace or Inkscape?",
+            "answer": "Illustrator and Inkscape require heavy manual cleanup with the Pen tool, Pathfinder booleans, and anchor point simplification. AI SVG Generator automates all topological cleanup, path closure, and node economy in under 5 seconds."
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Stop Struggling with Node Soup",
+        "description": "Generate your first clean, cut-ready SVG file in seconds. No sign-up required.",
+        "buttons": [
+          {
+            "title": "Try AI SVG Generator Free",
+            "url": "#svg-studio",
+            "target": "_self",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "Explore Pro Pricing",
+            "url": "/pricing",
+            "target": "_self",
+            "variant": "outline",
+            "icon": "Zap"
+          }
+        ],
+        "className": "bg-muted"
+      }
+    }
+  }
+}

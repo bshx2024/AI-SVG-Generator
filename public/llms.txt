@@ -1,0 +1,13 @@
+# AI SVG Generator
+> Free AI SVG Generator online: Turn text prompts and PNG images into clean, low-node SVGs optimized for Cricut, laser cutting, and web developers with no sign-up required.
+
+## Core Capabilities
+- **Text to SVG**: Native prompt-to-XML generator producing lightweight, semantic SVGs.
+- **PNG to SVG (Image to Vector)**: High-precision vectorizer that eliminates "node soup" and guarantees 100% closed cut paths.
+- **Cricut & Laser Ready**: Automatic multi-layer color separation, compound path grouping, and 0.2mm trapping offset to prevent gaps in vinyl and heat-transfer crafts.
+- **Developer Code Ready**: Outputs clean, inline SVG code, React/JSX components, and Tailwind styling without clutter.
+
+## Key Differences vs Vectorizer.ai & Inkscape
+- **Zero Node Soup**: Reduces anchor points by up to 85% using RDP bezier algorithms.
+- **Free No Sign-Up Trial**: Instant in-browser conversion and live interactive preview with no mandatory account creation.
+- **Physical Trapping**: Built-in 0.2mm-0.5mm choke/bleed tolerance for vinyl and physical cutting.
