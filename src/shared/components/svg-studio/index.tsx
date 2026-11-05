@@ -11,30 +11,31 @@ import {
   Check,
   Eye,
   EyeOff,
-  Maximize2,
-  Minimize2,
   ZoomIn,
   ZoomOut,
   RotateCcw,
   Scissors,
   Code2,
-  Palette,
   FileCheck,
   Cpu,
+  Crosshair,
+  Maximize2,
+  ShieldCheck,
+  Zap,
 } from 'lucide-react';
 
 import { Button } from '@/shared/components/ui/button';
 import { SAMPLE_SVGS } from './sample-svgs';
 import { StudioMode, SvgPresetStyle, SvgLayer } from './types';
 
-// Extract pseudo coordinates from SVG path for node visualization
+// Extract pseudo coordinates from SVG path for precision vector node visualization
 function extractCoordinates(d: string): Array<{ x: number; y: number }> {
   const points: Array<{ x: number; y: number }> = [];
   const matches = d.match(/([0-9.-]+)[,\s]+([0-9.-]+)/g);
   if (!matches) return points;
 
-  // Sample nodes to avoid browser freeze on large paths
-  const step = Math.max(1, Math.floor(matches.length / 50));
+  // Sample nodes to preserve fidelity without DOM lag
+  const step = Math.max(1, Math.floor(matches.length / 60));
   for (let i = 0; i < matches.length; i += step) {
     const parts = matches[i].split(/[,\s]+/);
     if (parts.length >= 2) {
@@ -51,7 +52,7 @@ function extractCoordinates(d: string): Array<{ x: number; y: number }> {
 export function SvgStudio() {
   const [mode, setMode] = useState<StudioMode>('text');
   const [style, setStyle] = useState<SvgPresetStyle>('cricut-cut');
-  const [prompt, setPrompt] = useState('Boho Wildflower Floral Bouquet for T-Shirt');
+  const [prompt, setPrompt] = useState('Vintage Boho Wildflower Skull for Cricut T-Shirt');
   const [selectedSampleKey, setSelectedSampleKey] = useState<string>('wildflower');
   
   // Active sample data
@@ -60,6 +61,7 @@ export function SvgStudio() {
   
   // Interactive controls
   const [showNodes, setShowNodes] = useState(true);
+  const [showGrid, setShowGrid] = useState(true);
   const [smoothness, setSmoothness] = useState<number>(85); // 0 (raw) to 100 (ultra smooth)
   const [zoom, setZoom] = useState<number>(1);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -98,10 +100,14 @@ export function SvgStudio() {
   // Simulated node reduction based on smoothness slider
   const displayedNodeCount = useMemo(() => {
     const raw = currentSample.originalNodeCount;
-    // At smoothness 100, we compress down by ~85%
     const ratio = 1 - (smoothness / 100) * 0.85;
     return Math.max(24, Math.round(raw * ratio));
   }, [currentSample.originalNodeCount, smoothness]);
+
+  const savedPercent = useMemo(() => {
+    const raw = currentSample.originalNodeCount;
+    return Math.round(((raw - displayedNodeCount) / raw) * 100);
+  }, [currentSample.originalNodeCount, displayedNodeCount]);
 
   // Generate SVG markup from current layer state
   const generatedSvgString = useMemo(() => {
@@ -189,113 +195,115 @@ export function SvgStudio() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 py-8">
-      {/* Studio Container */}
-      <div className="relative overflow-hidden rounded-3xl border border-border/80 bg-background/95 shadow-2xl backdrop-blur-xl">
-        {/* Top Header Bar */}
-        <div className="flex flex-wrap items-center justify-between border-b border-border/60 bg-muted/30 px-6 py-4">
+    <div className="mx-auto w-full max-w-7xl">
+      {/* App Frame (Taste-Skill Anti-Slop System) */}
+      <div className="relative overflow-hidden rounded-2xl border border-zinc-200/90 bg-white shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
+        
+        {/* Studio Titlebar (Desktop App Style) */}
+        <div className="flex flex-wrap items-center justify-between border-b border-zinc-200/80 bg-zinc-50/70 px-5 py-3 dark:border-zinc-850 dark:bg-zinc-900/60">
           <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-              <Sparkles className="size-5" />
+            <div className="flex items-center gap-1.5">
+              <span className="size-3 rounded-full bg-red-400/80 dark:bg-red-500/60" />
+              <span className="size-3 rounded-full bg-amber-400/80 dark:bg-amber-500/60" />
+              <span className="size-3 rounded-full bg-emerald-400/80 dark:bg-emerald-500/60" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="font-semibold text-foreground text-base tracking-tight">
-                  AI Vector Studio
-                </h3>
-                <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 font-medium text-emerald-600 dark:text-emerald-400 text-xs">
-                  ⚡ 100% True Vector
-                </span>
-              </div>
-              <p className="text-muted-foreground text-xs">
-                Zero Node Soup • Cricut, Laser & React Component Compatible
-              </p>
+            <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-800" />
+            <div className="flex items-center gap-2">
+              <span className="font-mono font-medium text-xs text-zinc-900 dark:text-zinc-100">
+                vector_engine_v1.0.svg
+              </span>
+              <span className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-[10px] text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+                100% Closed Curves
+              </span>
             </div>
           </div>
 
-          {/* Mode Switcher Tabs */}
-          <div className="mt-2 flex items-center rounded-xl border border-border/60 bg-background p-1 shadow-inner sm:mt-0">
+          {/* Mode Switcher */}
+          <div className="flex items-center rounded-lg border border-zinc-200 bg-zinc-100/80 p-0.5 dark:border-zinc-800 dark:bg-zinc-900">
             <button
               onClick={() => setMode('text')}
-              className={`flex items-center gap-2 rounded-lg px-4 py-1.5 font-medium text-xs transition-all ${
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1 font-medium text-xs transition-all ${
                 mode === 'text'
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
+                  ? 'bg-white text-zinc-950 shadow-sm dark:bg-zinc-800 dark:text-zinc-100'
+                  : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
               }`}
             >
-              <Sparkles className="size-3.5" />
+              <Sparkles className="size-3" />
               Text to SVG
             </button>
             <button
               onClick={() => setMode('image')}
-              className={`flex items-center gap-2 rounded-lg px-4 py-1.5 font-medium text-xs transition-all ${
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1 font-medium text-xs transition-all ${
                 mode === 'image'
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
+                  ? 'bg-white text-zinc-950 shadow-sm dark:bg-zinc-800 dark:text-zinc-100'
+                  : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
               }`}
             >
-              <Upload className="size-3.5" />
+              <Upload className="size-3" />
               PNG to SVG
             </button>
           </div>
         </div>
 
-        {/* Studio Body Grid */}
+        {/* Studio Workspace Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12">
-          {/* Left Column: Generator Configuration (5 cols) */}
-          <div className="flex flex-col justify-between border-b border-border/60 p-6 lg:col-span-5 lg:border-r lg:border-b-0">
-            <div className="space-y-6">
+          
+          {/* Left Panel: Parameters & Input (5 cols) */}
+          <div className="flex flex-col justify-between border-b border-zinc-200/80 p-6 lg:col-span-5 lg:border-r lg:border-b-0 dark:border-zinc-850">
+            <div className="space-y-5">
               {mode === 'text' ? (
                 <>
-                  {/* Prompt Input */}
+                  {/* Prompt Textarea */}
                   <div className="space-y-2">
-                    <label className="flex items-center justify-between font-medium text-foreground text-xs">
-                      <span>Prompt Description</span>
-                      <span className="text-muted-foreground text-[11px]">Free, No Sign-up</span>
-                    </label>
-                    <div className="relative">
-                      <textarea
-                        value={prompt}
-                        onChange={(e) => setPrompt(e.target.value)}
-                        rows={3}
-                        placeholder="e.g. Vintage Boho Wildflower Skull for Cricut T-Shirt..."
-                        className="w-full resize-none rounded-xl border border-input bg-muted/40 p-3 text-foreground text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                      />
+                    <div className="flex items-center justify-between text-xs">
+                      <label className="font-medium text-zinc-900 dark:text-zinc-100">
+                        Prompt Instruction
+                      </label>
+                      <span className="font-mono text-[11px] text-emerald-600 dark:text-emerald-400">
+                        ✓ Free Trial • No Sign-up
+                      </span>
                     </div>
+                    <textarea
+                      value={prompt}
+                      onChange={(e) => setPrompt(e.target.value)}
+                      rows={3}
+                      placeholder="e.g. Boho Wildflower Bouquet for Cricut Vinyl..."
+                      className="w-full resize-none rounded-xl border border-zinc-200 bg-zinc-50/50 p-3 text-xs text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-900 focus:bg-white focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-100 dark:focus:border-zinc-100"
+                    />
                   </div>
 
-                  {/* Preset Style Selector */}
+                  {/* Profile Preset Selectors */}
                   <div className="space-y-2">
-                    <label className="font-medium text-foreground text-xs">
-                      Target Optimization Profile
+                    <label className="font-medium text-xs text-zinc-900 dark:text-zinc-100">
+                      Target Geometry Profile
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                       {[
                         {
                           id: 'cricut-cut',
                           title: 'Cricut Monocut',
-                          desc: 'Single closed path, zero overlap',
+                          spec: '1 Closed Loop • 0 Overlap',
                           icon: Scissors,
                           sample: 'cricut_bear',
                         },
                         {
                           id: 'multi-layer',
                           title: 'Vinyl Multi-Layer',
-                          desc: 'Separated by color layers',
+                          spec: 'Separated by Color Group',
                           icon: Layers,
                           sample: 'wildflower',
                         },
                         {
                           id: 'ui-icon',
-                          title: 'Web & UI Icon',
-                          desc: 'Ultra lightweight React JSX',
+                          title: 'Minimalist Icon',
+                          spec: 'React JSX • < 3KB',
                           icon: Code2,
                           sample: 'ui_sparkles',
                         },
                         {
                           id: 'vintage-badge',
                           title: 'Laser Engraving',
-                          desc: 'High-contrast wood/acrylic',
+                          spec: 'High-Contrast Solid Fill',
                           icon: Cpu,
                           sample: 'cricut_bear',
                         },
@@ -308,16 +316,22 @@ export function SvgStudio() {
                           }}
                           className={`flex flex-col items-start rounded-xl border p-3 text-left transition-all ${
                             style === item.id
-                              ? 'border-primary bg-primary/5 text-primary ring-1 ring-primary/30'
-                              : 'border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/40 hover:text-foreground'
+                              ? 'border-zinc-950 bg-zinc-950 text-white shadow-sm dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-950'
+                              : 'border-zinc-200 bg-zinc-50/60 text-zinc-600 hover:border-zinc-300 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-400 dark:hover:bg-zinc-900'
                           }`}
                         >
-                          <div className="mb-1.5 flex items-center gap-1.5 font-medium text-foreground text-xs">
+                          <div className="flex items-center gap-1.5 font-medium text-xs">
                             <item.icon className="size-3.5" />
                             {item.title}
                           </div>
-                          <span className="text-[11px] text-muted-foreground leading-tight">
-                            {item.desc}
+                          <span
+                            className={`mt-1 font-mono text-[10px] ${
+                              style === item.id
+                                ? 'text-zinc-300 dark:text-zinc-600'
+                                : 'text-zinc-400 dark:text-zinc-500'
+                            }`}
+                          >
+                            {item.spec}
                           </span>
                         </button>
                       ))}
@@ -328,12 +342,12 @@ export function SvgStudio() {
                 /* Image to SVG Dropzone */
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="font-medium text-foreground text-xs">
-                      Upload Raster Image (PNG, JPG, WebP)
+                    <label className="font-medium text-xs text-zinc-900 dark:text-zinc-100">
+                      Raster Source (PNG, JPG, WebP)
                     </label>
                     <div
                       onClick={() => fileInputRef.current?.click()}
-                      className="group flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-border/80 bg-muted/20 p-8 text-center transition-all hover:border-primary hover:bg-muted/40"
+                      className="group flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-zinc-200 bg-zinc-50/50 p-7 text-center transition-all hover:border-zinc-900 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/30 dark:hover:border-zinc-600"
                     >
                       <input
                         type="file"
@@ -342,30 +356,30 @@ export function SvgStudio() {
                         accept="image/png, image/jpeg, image/webp"
                         className="hidden"
                       />
-                      <div className="flex size-12 items-center justify-center rounded-2xl bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary">
-                        <Upload className="size-6" />
+                      <div className="flex size-10 items-center justify-center rounded-xl bg-zinc-200/80 text-zinc-700 transition-colors group-hover:bg-zinc-900 group-hover:text-white dark:bg-zinc-800 dark:text-zinc-300 dark:group-hover:bg-zinc-100 dark:group-hover:text-zinc-950">
+                        <Upload className="size-5" />
                       </div>
-                      <p className="mt-3 font-medium text-foreground text-sm">
-                        {uploadedFile ? uploadedFile.name : 'Click or drop image here'}
+                      <p className="mt-2.5 font-medium text-xs text-zinc-900 dark:text-zinc-100">
+                        {uploadedFile ? uploadedFile.name : 'Drop PNG or click to browse'}
                       </p>
-                      <p className="mt-1 text-muted-foreground text-xs">
-                        Auto-eliminates anti-aliased blur & extracts true curves
+                      <p className="mt-0.5 font-mono text-[11px] text-zinc-400">
+                        Auto-eliminates fuzzy pixels & extracts paths
                       </p>
                     </div>
                   </div>
 
-                  {/* Sample Templates to try */}
-                  <div className="space-y-2">
-                    <span className="text-muted-foreground text-xs">Or test sample images:</span>
-                    <div className="flex gap-2">
+                  {/* Sample presets */}
+                  <div className="space-y-1.5">
+                    <span className="font-mono text-[11px] text-zinc-400">Or test ready samples:</span>
+                    <div className="flex gap-1.5">
                       {Object.keys(SAMPLE_SVGS).map((k) => (
                         <button
                           key={k}
                           onClick={() => handleSelectSample(k)}
-                          className={`rounded-lg border px-3 py-1 text-xs transition-all ${
+                          className={`rounded-lg border px-2.5 py-1 text-xs transition-all ${
                             selectedSampleKey === k
-                              ? 'border-primary bg-primary/10 text-primary font-medium'
-                              : 'border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/40'
+                              ? 'border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-950'
+                              : 'border-zinc-200 bg-zinc-50 text-zinc-600 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400'
                           }`}
                         >
                           {SAMPLE_SVGS[k].title.split(' ')[0]}
@@ -377,117 +391,125 @@ export function SvgStudio() {
               )}
 
               {/* Action Button */}
-              <Button
+              <button
                 onClick={handleGenerate}
                 disabled={isGenerating}
-                className="w-full gap-2 rounded-xl py-6 font-semibold shadow-md"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 py-3.5 font-medium text-sm text-white shadow-sm transition-all hover:bg-zinc-800 active:scale-[0.99] disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200"
               >
                 {isGenerating ? (
                   <>
-                    <div className="size-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
-                    Generating Vector Paths...
+                    <div className="size-4 animate-spin rounded-full border-2 border-white border-t-transparent dark:border-zinc-900 dark:border-t-transparent" />
+                    <span>Processing Bézier Curves...</span>
                   </>
                 ) : (
                   <>
                     <Sparkles className="size-4" />
-                    {mode === 'text' ? 'Generate Clean SVG' : 'Vectorize & Smooth Image'}
+                    <span>{mode === 'text' ? 'Generate Clean SVG' : 'Vectorize & Smooth Image'}</span>
                   </>
                 )}
-              </Button>
+              </button>
 
-              {/* Free Trial Counter Card */}
-              <div className="flex items-center justify-between rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-3 text-xs">
+              {/* Free Trial Badge */}
+              <div className="flex items-center justify-between rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs dark:border-zinc-800 dark:bg-zinc-900/60">
                 <div className="flex items-center gap-2">
-                  <FileCheck className="size-4 text-emerald-500" />
-                  <span className="font-medium text-emerald-700 dark:text-emerald-300">
+                  <ShieldCheck className="size-4 text-emerald-500" />
+                  <span className="font-medium text-zinc-800 dark:text-zinc-200">
                     No Sign-Up Free Trial
                   </span>
                 </div>
-                <span className="text-muted-foreground">2/2 exports remaining today</span>
+                <span className="font-mono text-zinc-500 text-[11px]">2/2 remaining today</span>
               </div>
             </div>
 
-            {/* Quick Presets Footer */}
-            <div className="mt-6 border-t border-border/40 pt-4 text-muted-foreground text-xs">
-              <span className="font-medium">Active Model:</span> VTracer Bezier Kernel + LLM Topological Clean
+            {/* Architecture Footer Note */}
+            <div className="mt-6 flex items-center justify-between border-t border-zinc-200/80 pt-4 font-mono text-[11px] text-zinc-400 dark:border-zinc-850">
+              <span>Engine: VTracer + RDP</span>
+              <span className="text-emerald-500">● 0 Self-Intersections</span>
             </div>
           </div>
 
-          {/* Right Column: Interactive Canvas & Node Inspector (7 cols) */}
-          <div className="flex flex-col bg-muted/10 p-6 lg:col-span-7">
+          {/* Right Panel: Interactive Canvas (7 cols) */}
+          <div className="flex flex-col bg-zinc-50/40 p-6 lg:col-span-7 dark:bg-zinc-950/40">
+            
             {/* Canvas Toolbar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/40 pb-4">
-              {/* Node Stats Pill */}
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-background px-3 py-1 font-mono text-xs shadow-sm">
-                  <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="font-semibold text-foreground">{displayedNodeCount}</span>
-                  <span className="text-muted-foreground">nodes</span>
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-200/80 pb-4 dark:border-zinc-850">
+              
+              {/* Node Economy Metric Badge */}
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-2.5 py-1 font-mono text-xs shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                  <span className="size-1.5 rounded-full bg-emerald-500" />
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-100">{displayedNodeCount}</span>
+                  <span className="text-zinc-400">nodes</span>
                 </div>
 
-                <div className="hidden text-muted-foreground text-xs sm:inline">
-                  (reduced from <span className="line-through">{currentSample.originalNodeCount}</span> messy nodes)
+                <div className="rounded-md bg-emerald-500/10 px-2 py-0.5 font-mono text-emerald-700 text-[11px] dark:text-emerald-400">
+                  -{savedPercent}% Node Soup
                 </div>
               </div>
 
-              {/* Canvas Action Controls */}
+              {/* Viewport Action Controls */}
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => setShowNodes(!showNodes)}
                   className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs transition-all ${
                     showNodes
-                      ? 'border-primary bg-primary/10 text-primary font-medium'
-                      : 'border-border/60 bg-background text-muted-foreground hover:bg-muted'
+                      ? 'border-zinc-950 bg-zinc-950 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-950'
+                      : 'border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400'
                   }`}
-                  title="Toggle anchor point nodes visibility"
                 >
-                  <span className="size-1.5 rounded-full bg-red-500" />
-                  Show Nodes
+                  <Crosshair className="size-3" />
+                  Anchor Nodes
                 </button>
 
-                <div className="mx-1 h-4 w-px bg-border/60" />
+                <div className="mx-1 h-3.5 w-px bg-zinc-200 dark:bg-zinc-800" />
 
                 <button
                   onClick={() => setZoom((z) => Math.min(2.5, z + 0.25))}
-                  className="rounded-lg border border-border/60 bg-background p-1.5 text-muted-foreground hover:text-foreground"
+                  className="rounded-lg border border-zinc-200 bg-white p-1.5 text-zinc-500 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400"
+                  title="Zoom In"
                 >
                   <ZoomIn className="size-3.5" />
                 </button>
                 <button
                   onClick={() => setZoom((z) => Math.max(0.75, z - 0.25))}
-                  className="rounded-lg border border-border/60 bg-background p-1.5 text-muted-foreground hover:text-foreground"
+                  className="rounded-lg border border-zinc-200 bg-white p-1.5 text-zinc-500 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400"
+                  title="Zoom Out"
                 >
                   <ZoomOut className="size-3.5" />
                 </button>
                 <button
                   onClick={() => setZoom(1)}
-                  className="rounded-lg border border-border/60 bg-background p-1.5 text-muted-foreground hover:text-foreground"
+                  className="rounded-lg border border-zinc-200 bg-white p-1.5 text-zinc-500 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400"
+                  title="Reset View"
                 >
                   <RotateCcw className="size-3.5" />
                 </button>
               </div>
             </div>
 
-            {/* SVG Visual Canvas Area */}
-            <div className="relative mt-4 flex min-h-[340px] flex-1 items-center justify-center overflow-hidden rounded-2xl border border-border/60 bg-background/50 shadow-inner">
-              {/* Transparency Checkerboard background effect */}
-              <div
-                className="absolute inset-0 opacity-15 dark:opacity-5"
-                style={{
-                  backgroundImage:
-                    'radial-gradient(var(--border) 1px, transparent 1px)',
-                  backgroundSize: '16px 16px',
-                }}
-              />
+            {/* Precision SVG Canvas Area */}
+            <div className="relative mt-4 flex min-h-[340px] flex-1 items-center justify-center overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-inner dark:border-zinc-800 dark:bg-zinc-900">
+              
+              {/* Technical Millimeter Grid Pattern */}
+              {showGrid && (
+                <div
+                  className="absolute inset-0 opacity-[0.08] dark:opacity-[0.04]"
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)',
+                    backgroundSize: '24px 24px',
+                  }}
+                />
+              )}
 
-              {/* Rendered SVG with Zoom & Node Highlights */}
+              {/* Rendered SVG with Zoom & Vectors */}
               <div
-                style={{ transform: `scale(${zoom})`, transition: 'transform 0.15s ease' }}
+                style={{ transform: `scale(${zoom})`, transition: 'transform 0.12s ease' }}
                 className="relative flex items-center justify-center p-6"
               >
                 <svg
                   viewBox={currentSample.viewBox}
-                  className="max-h-[280px] w-auto max-w-[320px] drop-shadow-md"
+                  className="max-h-[290px] w-auto max-w-[340px] transition-all"
                 >
                   {layers
                     .filter((l) => l.visible)
@@ -497,22 +519,24 @@ export function SvgStudio() {
                         d={layer.d}
                         fill={layer.color}
                         fillRule="evenodd"
-                        stroke={showNodes ? 'rgba(0,0,0,0.1)' : 'none'}
+                        stroke={showNodes ? 'rgba(0,0,0,0.15)' : 'none'}
                         strokeWidth="0.5"
                       />
                     ))}
 
-                  {/* Render Visual Red Anchor Nodes if enabled */}
+                  {/* Render Visual Red Diamond Anchor Nodes if enabled */}
                   {showNodes &&
                     visualNodes.map((pt, idx) => (
-                      <circle
+                      <rect
                         key={idx}
-                        cx={pt.x}
-                        cy={pt.y}
-                        r="2.5"
+                        x={pt.x - 2}
+                        y={pt.y - 2}
+                        width="4"
+                        height="4"
                         fill="#EF4444"
                         stroke="#FFFFFF"
-                        strokeWidth="1"
+                        strokeWidth="0.8"
+                        transform={`rotate(45 ${pt.x} ${pt.y})`}
                         className="transition-all"
                       />
                     ))}
@@ -520,14 +544,14 @@ export function SvgStudio() {
               </div>
             </div>
 
-            {/* Smoothness Slider Control */}
-            <div className="mt-4 rounded-xl border border-border/60 bg-background/70 p-3 shadow-sm">
+            {/* Smoothness Slider */}
+            <div className="mt-4 rounded-xl border border-zinc-200 bg-white p-3.5 dark:border-zinc-800 dark:bg-zinc-900">
               <div className="flex items-center justify-between text-xs">
-                <span className="flex items-center gap-1.5 font-medium text-foreground">
-                  <Sliders className="size-3.5 text-primary" />
-                  RDP Node Smoothing (Eliminate Node Soup)
+                <span className="flex items-center gap-1.5 font-medium text-zinc-900 dark:text-zinc-100">
+                  <Sliders className="size-3.5 text-zinc-500" />
+                  Ramer-Douglas-Peucker Smoothing
                 </span>
-                <span className="font-mono text-muted-foreground">{smoothness}%</span>
+                <span className="font-mono text-zinc-500">{smoothness}% Tolerance</span>
               </div>
               <input
                 type="range"
@@ -535,47 +559,49 @@ export function SvgStudio() {
                 max="100"
                 value={smoothness}
                 onChange={(e) => setSmoothness(parseInt(e.target.value))}
-                className="mt-2 h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-muted accent-primary"
+                className="mt-2.5 h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-zinc-100 accent-zinc-900 dark:bg-zinc-800 dark:accent-zinc-100"
               />
-              <div className="mt-1 flex justify-between text-[10px] text-muted-foreground">
-                <span>Detailed Raw Curves</span>
-                <span>Optimized Cut Path (Cricut-Ready)</span>
+              <div className="mt-1.5 flex justify-between font-mono text-[10px] text-zinc-400">
+                <span>Detailed (Raw Anchor Count)</span>
+                <span>Optimized Cut (Clean Paths)</span>
               </div>
             </div>
 
             {/* Layers / Color Separation Inspector */}
             <div className="mt-4 space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="flex items-center gap-1.5 font-medium text-foreground">
-                  <Layers className="size-3.5 text-primary" />
-                  Color Layers (Automatic Compound Paths)
+                <span className="flex items-center gap-1.5 font-medium text-zinc-900 dark:text-zinc-100">
+                  <Layers className="size-3.5 text-zinc-500" />
+                  Color Layers (Cricut Compound Paths)
                 </span>
-                <span className="text-muted-foreground">{layers.length} layers detected</span>
+                <span className="font-mono text-[11px] text-zinc-400">
+                  {layers.length} separate cut mats
+                </span>
               </div>
 
               <div className="flex flex-wrap gap-2">
                 {layers.map((layer) => (
                   <div
                     key={layer.id}
-                    className="flex items-center gap-2 rounded-lg border border-border/60 bg-background px-2.5 py-1.5 text-xs shadow-sm"
+                    className="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-2.5 py-1.5 text-xs shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
                   >
                     <input
                       type="color"
                       value={layer.color}
                       onChange={(e) => handleColorChange(layer.id, e.target.value)}
-                      className="size-4 cursor-pointer rounded-full border-0 bg-transparent p-0"
+                      className="size-3.5 cursor-pointer rounded-full border-0 bg-transparent p-0"
                     />
-                    <span className="max-w-[120px] truncate font-medium text-foreground text-[11px]">
+                    <span className="max-w-[120px] truncate font-mono text-[11px] text-zinc-700 dark:text-zinc-300">
                       {layer.name}
                     </span>
                     <button
                       onClick={() => toggleLayerVisibility(layer.id)}
-                      className="text-muted-foreground hover:text-foreground"
+                      className="text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                     >
                       {layer.visible ? (
                         <Eye className="size-3.5 text-emerald-500" />
                       ) : (
-                        <EyeOff className="size-3.5 text-muted-foreground/60" />
+                        <EyeOff className="size-3.5 opacity-40" />
                       )}
                     </button>
                   </div>
@@ -583,47 +609,51 @@ export function SvgStudio() {
               </div>
             </div>
 
-            {/* Export & Download Action Bar */}
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border/40 pt-4">
+            {/* Action Bar (Exporting) */}
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-zinc-200/80 pt-4 dark:border-zinc-850">
               <div className="flex flex-wrap items-center gap-2">
-                <Button
+                <button
                   onClick={() => handleDownload('cricut')}
-                  className="gap-2 rounded-xl bg-emerald-600 font-medium text-white shadow-sm hover:bg-emerald-700 text-xs"
+                  className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3.5 py-2 font-medium text-xs text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-[0.98]"
                 >
                   <Scissors className="size-3.5" />
                   Download Cricut SVG
-                </Button>
-                <Button
-                  variant="outline"
+                </button>
+                <button
                   onClick={() => handleDownload('web')}
-                  className="gap-2 rounded-xl text-xs"
+                  className="flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 py-2 font-medium text-xs text-zinc-800 transition-all hover:bg-zinc-50 active:scale-[0.98] dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-850"
                 >
                   <Download className="size-3.5" />
                   Download Web SVG
-                </Button>
+                </button>
               </div>
 
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
+              <div className="flex items-center gap-1">
+                <button
                   onClick={() => handleCopy('jsx')}
-                  className="gap-1.5 text-muted-foreground hover:text-foreground text-xs"
+                  className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-xs text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
                 >
-                  {copiedType === 'jsx' ? <Check className="size-3.5 text-emerald-500" /> : <Code2 className="size-3.5" />}
-                  Copy JSX
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
+                  {copiedType === 'jsx' ? (
+                    <Check className="size-3.5 text-emerald-500" />
+                  ) : (
+                    <Code2 className="size-3.5" />
+                  )}
+                  JSX
+                </button>
+                <button
                   onClick={() => handleCopy('raw')}
-                  className="gap-1.5 text-muted-foreground hover:text-foreground text-xs"
+                  className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-xs text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
                 >
-                  {copiedType === 'raw' ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5" />}
-                  Copy SVG
-                </Button>
+                  {copiedType === 'raw' ? (
+                    <Check className="size-3.5 text-emerald-500" />
+                  ) : (
+                    <Copy className="size-3.5" />
+                  )}
+                  Raw SVG
+                </button>
               </div>
             </div>
+
           </div>
         </div>
       </div>

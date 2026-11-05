@@ -11,3 +11,4 @@
 - **Zero Node Soup**: Reduces anchor points by up to 85% using RDP bezier algorithms.
 - **Free No Sign-Up Trial**: Instant in-browser conversion and live interactive preview with no mandatory account creation.
 - **Physical Trapping**: Built-in 0.2mm-0.5mm choke/bleed tolerance for vinyl and physical cutting.
+

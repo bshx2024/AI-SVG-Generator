@@ -73,3 +73,4 @@ export const SAMPLE_SVGS: Record<string, SampleSvg> = {
     ],
   },
 };
+

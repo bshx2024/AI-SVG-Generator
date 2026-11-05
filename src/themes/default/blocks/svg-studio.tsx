@@ -14,7 +14,7 @@ export function SvgStudioBlock({
   return (
     <section
       id={section?.id || 'svg-studio'}
-      className={cn('relative py-6 md:py-10', section?.className, className)}
+      className={cn('relative pt-0 pb-12 md:pb-16', section?.className, className)}
     >
       <div className="container mx-auto">
         <SvgStudio />
@@ -25,3 +25,4 @@ export function SvgStudioBlock({
 
 // Export both PascalCase and alias for theme loader
 export { SvgStudioBlock as SvgStudio };
+
