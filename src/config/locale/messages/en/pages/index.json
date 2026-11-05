@@ -57,7 +57,7 @@
       "benefits": {
         "block": "features-accordion",
         "id": "benefits",
-        "title": "Why Crafters & Developers Choose Us",
+        "title": "Why Crafters Rate Us the Best Free AI SVG Generator",
         "label": "Engineering Breakthrough",
         "description": "Most AI tools generate pixel images or messy 'node soup'. We built a true geometric vector engine.",
         "items": [
@@ -104,6 +104,11 @@
             "title": "PNG to SVG Vectorizer",
             "description": "Upload customer sketches, Midjourney rasters, or low-res logos. Auto-eliminates anti-aliased blur.",
             "icon": "RiImageAddFill"
+          },
+          {
+            "title": "AI SVG Logo & Icon Generator",
+            "description": "Generate scalable vector logos, vintage brand monograms, and crisp UI icons with zero pixelation at any display scale.",
+            "icon": "RiShieldStarLine"
           },
           {
             "title": "Physical Trapping Offset",
@@ -194,6 +199,10 @@
           {
             "question": "How does client-side WebAssembly vectorization protect my image privacy and speed up processing?",
             "answer": "When converting PNG, JPG, or WebP images to vectors, our pipeline utilizes high-performance WebAssembly (WASM) running directly inside your modern browser sandbox. Your proprietary sketches, customer logos, and private artwork never leave your device for server processing, delivering instantaneous Bézier curve extraction with zero upload latency and bank-grade privacy."
+          },
+          {
+            "question": "Can I use this as an AI SVG logo generator for branding and commercial projects?",
+            "answer": "Yes! AI SVG Generator is engineered for creating scalable vector logos, vintage craft emblems, monogram insignias, and modern web icons. Every generated SVG comes with full commercial rights, perfectly suited for client brand identities, website logos, and physical print collateral."
           }
         ]
       },

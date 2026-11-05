@@ -423,7 +423,7 @@ export function SvgStudio() {
                         },
                         {
                           id: 'vintage-badge',
-                          title: 'Laser Engraving',
+                          title: 'Logo & Laser Badge',
                           spec: 'High-Contrast Solid Fill',
                           icon: Cpu,
                           sample: 'vintage_badge',

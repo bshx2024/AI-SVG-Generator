@@ -57,7 +57,7 @@
       "benefits": {
         "block": "features-accordion",
         "id": "benefits",
-        "title": "为什么创客与开发者青睐我们",
+        "title": "为什么创客评价我们是最好用的免费 AI 矢量生成器",
         "label": "工程级技术突破",
         "description": "大多数 AI 工具生成的只是伪矢量或节点面条。我们构建了真正的几何矢量清洗管线。",
         "items": [
@@ -104,6 +104,11 @@
             "title": "位图转矢量（PNG to SVG）",
             "description": "上传手绘稿、Midjourney 位图或低清 Logo，自动消除抗锯齿虚影，提取纯净贝塞尔轮廓。",
             "icon": "RiImageAddFill"
+          },
+          {
+            "title": "AI 矢量 Logo 与图标生成器",
+            "description": "一键生成无限放大的商业品牌 Logo、复古印章徽标与极简 UI 图标，任意尺寸打印无锯齿失真。",
+            "icon": "RiShieldStarLine"
           },
           {
             "title": "物理补漏白（Trapping Offset）",
@@ -194,6 +199,10 @@
           {
             "question": "纯浏览器端 WebAssembly 矢量化如何保护我的设计隐私？",
             "answer": "在进行位图转矢量（PNG to SVG）时，核心拟合引擎完全运行在用户本地浏览器的 WebAssembly 沙箱内。你的原创画稿、客户品牌 Logo 绝不会上传至任何第三方服务器进行后台存储，实现瞬时渲染与顶级数据隐私保护。"
+          },
+          {
+            "question": "我可以把这个工具当作 AI 矢量 Logo 生成器来设计商业品牌标识吗？",
+            "answer": "完全可以！AI SVG Generator 特别针对商业 Logo、复古品牌印章、花体花标与现代应用图标进行了几何优化。导出的文件自带永久商业授权，适配高清印刷、网站 Favicon、名片与各类文创衍生品。"
           }
         ]
       },
