@@ -1,4 +1,9 @@
 {
+  "metadata": {
+    "title": "AI SVG Generator: Free Text & PNG to SVG (No Sign-Up)",
+    "description": "Generate clean, cut-ready SVGs from text prompts and PNG/JPG images free with no sign-up. Zero node soup, closed paths for Cricut & laser, clean React JSX.",
+    "keywords": "ai svg generator, free ai svg generator, ai svg generator free no sign up, png to svg, text to svg, image to vector, cricut svg generator, clean bezier svg"
+  },
   "page": {
     "show_sections": [
       "hero",
@@ -173,6 +178,22 @@
           {
             "question": "Why is this better than Adobe Illustrator Image Trace or Inkscape?",
             "answer": "Illustrator and Inkscape require heavy manual cleanup with the Pen tool, Pathfinder booleans, and anchor point simplification. AI SVG Generator automates all topological cleanup, path closure, and node economy in under 5 seconds."
+          },
+          {
+            "question": "What is physical trapping offset and why is it essential for multi-color vinyl crafts?",
+            "answer": "When creating multi-color HTV (Heat Transfer Vinyl) or permanent adhesive vinyl decals, heat-press application causes vinyl material to shrink slightly along the seams. Traditional vector tools leave zero tolerance, causing unsightly white gaps between colors. Our AI geometric engine automatically calculates an engineered 0.2mm to 0.5mm choke overlap (trapping) between adjacent color layers, ensuring perfectly aligned, seamless physical press results without any light leaks."
+          },
+          {
+            "question": "How do strictly closed paths (Z-command) protect Cricut blades and laser cutters?",
+            "answer": "CNC cutting machines, Roland plotters, xTool lasers, and Cricut blades require strictly closed geometric loops ending with standard SVG 'Z' or 'z' commands. Unclosed paths or micro self-intersecting loops cause cutting heads to stutter, double-cut the same pixel, or tear delicate cardstock and vinyl. AI SVG Generator guarantees 100% watertight, non-self-intersecting closed contours that allow your machine's toolhead to glide smoothly in one continuous stroke."
+          },
+          {
+            "question": "Can developers copy clean React JSX vector icons directly into TailwindCSS or Shadcn UI?",
+            "answer": "Yes. Switch to 'Minimalist Icon' profile or click the 'JSX' copy button in the studio canvas. You receive production-ready React component code formatted with camelCase SVG attributes (fillRule, clipRule), responsive viewBox coordinates, and currentColor styling that seamlessly adapts to dark/light theme switching and Tailwind utility classes."
+          },
+          {
+            "question": "How does client-side WebAssembly vectorization protect my image privacy and speed up processing?",
+            "answer": "When converting PNG, JPG, or WebP images to vectors, our pipeline utilizes high-performance WebAssembly (WASM) running directly inside your modern browser sandbox. Your proprietary sketches, customer logos, and private artwork never leave your device for server processing, delivering instantaneous Bézier curve extraction with zero upload latency and bank-grade privacy."
           }
         ]
       },

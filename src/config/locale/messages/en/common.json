@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "ShipAny Template Two",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups. Ship Fast with a variety of templates and components.",
-    "keywords": "shipany, shipany-boilerplate, shipany-template-two-demo"
+    "title": "AI SVG Generator: Free Text & PNG to SVG (No Sign-Up)",
+    "description": "Generate clean, cut-ready SVGs from text prompts and PNG/JPG images free with no sign-up. Zero node soup, closed paths for Cricut & laser, clean React JSX.",
+    "keywords": "ai svg generator, free ai svg generator, ai svg generator free no sign up, png to svg, text to svg, image to vector, cricut svg generator, clean bezier svg"
   },
   "sign": {
     "sign_in_title": "Sign In",

@@ -6,9 +6,11 @@ import packageJson from '../../package.json';
 export type ConfigMap = Record<string, string>;
 
 export const envConfigs: ConfigMap = {
-  app_url: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
-  app_name: process.env.NEXT_PUBLIC_APP_NAME ?? 'ShipAny App',
-  app_description: process.env.NEXT_PUBLIC_APP_DESCRIPTION ?? '',
+  app_url: process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.aisvggenerator.app',
+  app_name: process.env.NEXT_PUBLIC_APP_NAME ?? 'AI SVG Generator',
+  app_description:
+    process.env.NEXT_PUBLIC_APP_DESCRIPTION ??
+    'Free AI SVG Generator: Turn text prompts and PNG images into clean, cut-ready SVGs with zero node soup for Cricut, laser cutters, and Web React JSX.',
   app_logo: process.env.NEXT_PUBLIC_APP_LOGO ?? '/logo.png',
   app_favicon: process.env.NEXT_PUBLIC_APP_FAVICON ?? '/favicon.ico',
   app_preview_image:

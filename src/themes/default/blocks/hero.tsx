@@ -86,7 +86,11 @@ export function Hero({
                 className="px-4 text-sm"
                 key={idx}
               >
-                <Link href={button.url ?? ''} target={button.target ?? '_self'}>
+                <Link
+                  href={button.url ?? ''}
+                  target={button.target ?? '_self'}
+                  rel={button.target === '_blank' ? 'noopener noreferrer' : undefined}
+                >
                   {button.icon && <SmartIcon name={button.icon as string} />}
                   <span>{button.title}</span>
                 </Link>

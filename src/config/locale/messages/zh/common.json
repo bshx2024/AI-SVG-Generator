@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "ShipAny 模板二",
-    "description": "ShipAny 是用于构建 AI SaaS 创业项目的 NextJS 脚手架。提供丰富模板和组件，助您快速上线产品。",
-    "keywords": "shipany, shipany-boilerplate, shipany-template-two-demo"
+    "title": "免费 AI 矢量图生成器: 文本与位图转纯净 SVG (免登录在线制作)",
+    "description": "在线免费 AI 矢量生成器，支持自然语言与 PNG/JPG 图片一键转切刻级原生 SVG。告别节点面条，100% 刀头闭合路径，专为 Cricut 刻字机、激光雕刻与 React 前端打造。",
+    "keywords": "ai svg 生成器, 免费 ai 矢量图, png 转 svg, 位图转矢量, cricut 矢量设计, 刻字机 svg, 免注册 svg 生成器"
   },
   "sign": {
     "sign_in_title": "登录",
