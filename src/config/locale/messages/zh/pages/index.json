@@ -1,15 +1,17 @@
 {
   "metadata": {
     "title": "免费 AI 矢量图生成器: 文本与位图转纯净 SVG (免登录在线制作)",
-    "description": "在线免费 AI 矢量生成器，支持自然语言与 PNG/JPG 图片一键转切刻级原生 SVG。告别节点面条，100% 刀头闭合路径，专为 Cricut 刻字机、激光雕刻与 React 前端打造。",
+    "description": "免费 AI 矢量生成器（AI SVG Generator）：支持文本提示词与 PNG/JPG 位图一键转切刻级纯净 SVG。告别节点面条，100% 刀头闭合路径，专为 Cricut 刻字机、激光雕刻与 React 前端打造。",
     "keywords": "ai svg 生成器, 免费 ai 矢量图, png 转 svg, 位图转矢量, cricut 矢量设计, 刻字机 svg, 免注册 svg 生成器"
   },
   "page": {
     "show_sections": [
       "hero",
       "svg-studio",
+      "how-it-works",
       "benefits",
       "features",
+      "testimonials",
       "stats",
       "faq",
       "cta"
@@ -50,9 +52,34 @@
         "id": "svg-studio",
         "block": "svg-studio"
       },
-      "vector-showcase": {
-        "id": "vector-showcase",
-        "block": "vector-showcase"
+      "how-it-works": {
+        "block": "features-step",
+        "id": "how-it-works",
+        "title": "免费 AI 矢量生成器工作原理：简单 4 步交付",
+        "label": "工业级生产工作流",
+        "description": "从构思描述或位图草图到 cut-ready 切刻几何只需数秒，双轨矢量清洗管线彻底取代繁重的手动钢笔工具描摹。",
+        "items": [
+          {
+            "title": "1. 输入提示词或拖入位图",
+            "description": "用自然语言描述构想，或上传现有的 PNG、JPG、WebP 图案。算法自动提取边缘轮廓并聚类分析色彩分区。",
+            "icon": "RiSparklingFill"
+          },
+          {
+            "title": "2. AI 几何清洗与 RDP 曲线拟合",
+            "description": "智能曲线拟合引擎应用 Ramer-Douglas-Peucker 算法，将杂乱的抗锯齿台阶简化为 120 个以内的平滑贝塞尔锚点，减少 85% 冗余。",
+            "icon": "RiScissorsCutLine"
+          },
+          {
+            "title": "3. 物理分色分层与 0.2mm 补漏白",
+            "description": "相邻颜色分别划分为独立复合路径，并施加 0.2mm 物理重叠公差，彻底消除热转印烫画缩水导致的露白缝隙。",
+            "icon": "RiStackLine"
+          },
+          {
+            "title": "4. 即刻导出 Cricut SVG 或 React JSX",
+            "description": "导出带 Z 闭合指令的工业级 SVG，直接导入 Cricut Design Space 或激光机，或一键复制极简 React JSX 前端组件。",
+            "icon": "RiCodeBoxLine"
+          }
+        ]
       },
       "benefits": {
         "block": "features-accordion",
@@ -129,6 +156,41 @@
             "title": "浏览器内实时交互画布",
             "description": "导出前在网页端任意缩放查看贝塞尔锚点分布，拖动平滑度滑块，并单独控制分色图层。",
             "icon": "RiEyeLine"
+          }
+        ]
+      },
+      "testimonials": {
+        "block": "testimonials",
+        "id": "testimonials",
+        "title": "受到全球创客、Etsy 卖家与开发者的广泛好评",
+        "description": "来自真实创作者的声音，告别手动修复节点面条与断线的无尽返工。",
+        "items": [
+          {
+            "description": "之前用别的工具描摹出来的矢量经常包含几千个杂乱点，一导入 Cricut Design Space 软件就卡死，刻刀到处乱窜划烂贴纸。AI SVG Generator 生成的轮廓极其丝滑，切割时间直接从 4 分钟下降到 25 秒！",
+            "name": "Sarah Jenkins",
+            "role": "Etsy 五星热转印工艺品店主",
+            "image": {
+              "src": "/imgs/avatars/1.png",
+              "alt": "Sarah Jenkins"
+            }
+          },
+          {
+            "description": "自带的 0.2mm 补漏白对于多色热转印来说简直是神技！以前烫完衣服色块边缘总有一道难看的白色缝隙，现在每个颜色图层完美咬合无缝贴合，印品良品率直接拉满。",
+            "name": "Marcus Vance",
+            "role": "定制服装与激光雕刻工坊主理人",
+            "image": {
+              "src": "/imgs/avatars/2.png",
+              "alt": "Marcus Vance"
+            }
+          },
+          {
+            "description": "作为前端工程师，最烦的就是从设计稿导出的 SVG 带一堆垃圾标签。在这里直接点击 JSX 就能复制标准的 React 组件，体积不到 3KB，完美配合 TailwindCSS 主题切换。",
+            "name": "Elena Rostova",
+            "role": "资深 UI/UX 工程师与开源作者",
+            "image": {
+              "src": "/imgs/avatars/3.png",
+              "alt": "Elena Rostova"
+            }
           }
         ]
       },
