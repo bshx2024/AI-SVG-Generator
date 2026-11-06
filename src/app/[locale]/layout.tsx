@@ -126,7 +126,7 @@ export default async function LocaleLayout({
               '@context': 'https://schema.org',
               '@type': 'WebApplication',
               name: 'AI SVG Generator',
-              url: appUrl || 'https://ai-svg-generator.com',
+              url: appUrl || 'https://www.aisvggenerator.app',
               description:
                 'Free AI SVG Generator online: Convert text and PNG images into clean, low-node SVGs optimized for Cricut, laser cutting, and web developers with no sign-up required.',
               applicationCategory: 'DesignApplication',
