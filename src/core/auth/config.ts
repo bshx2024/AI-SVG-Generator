@@ -42,6 +42,60 @@ const authOptions = {
         required: false,
         defaultValue: '',
       },
+      firstSource: {
+        type: 'string',
+        input: false,
+        required: false,
+        defaultValue: '',
+      },
+      firstMedium: {
+        type: 'string',
+        input: false,
+        required: false,
+        defaultValue: '',
+      },
+      firstCampaign: {
+        type: 'string',
+        input: false,
+        required: false,
+        defaultValue: '',
+      },
+      firstReferrer: {
+        type: 'string',
+        input: false,
+        required: false,
+        defaultValue: '',
+      },
+      firstLanding: {
+        type: 'string',
+        input: false,
+        required: false,
+        defaultValue: '',
+      },
+      firstTouchAt: {
+        type: 'number',
+        input: false,
+        required: false,
+        defaultValue: 0,
+      },
+      lastSource: {
+        type: 'string',
+        input: false,
+        required: false,
+        defaultValue: '',
+      },
+      lastMedium: {
+        type: 'string',
+        input: false,
+        required: false,
+        defaultValue: '',
+      },
+      lastCampaign: {
+        type: 'string',
+        input: false,
+        required: false,
+        defaultValue: '',
+      },
       ip: {
         type: 'string',
         input: false,
@@ -111,20 +165,53 @@ export async function getAuthOptions(configs: Record<string, string>) {
                 user.locale = locale.slice(0, 20);
               }
 
-              // Only set on first creation; never overwrite later.
-              if (user?.utmSource) return user;
+              // 1. Dual-touch attribution from attr_ft cookie (First Touch)
+              try {
+                const ftRaw = getCookieFromCtx(ctx, 'attr_ft');
+                if (ftRaw) {
+                  const ft = JSON.parse(decodeURIComponent(ftRaw));
+                  if (ft && typeof ft === 'object') {
+                    if (ft.source) user.firstSource = String(ft.source).slice(0, 64);
+                    if (ft.medium) user.firstMedium = String(ft.medium).slice(0, 64);
+                    if (ft.campaign) user.firstCampaign = String(ft.campaign).slice(0, 128);
+                    if (ft.referrer) user.firstReferrer = String(ft.referrer).slice(0, 255);
+                    if (ft.landing) user.firstLanding = String(ft.landing).slice(0, 255);
+                    if (typeof ft.timestamp === 'number') user.firstTouchAt = ft.timestamp;
+                    user.utmSource = user.firstSource;
+                  }
+                }
+              } catch {
+                // best-effort
+              }
 
-              const raw = getCookieFromCtx(ctx, 'utm_source');
-              if (!raw || typeof raw !== 'string') return user;
+              // 2. Last-touch attribution from attr_lt cookie (Last Touch)
+              try {
+                const ltRaw = getCookieFromCtx(ctx, 'attr_lt');
+                if (ltRaw) {
+                  const lt = JSON.parse(decodeURIComponent(ltRaw));
+                  if (lt && typeof lt === 'object') {
+                    if (lt.source) user.lastSource = String(lt.source).slice(0, 64);
+                    if (lt.medium) user.lastMedium = String(lt.medium).slice(0, 64);
+                    if (lt.campaign) user.lastCampaign = String(lt.campaign).slice(0, 128);
+                  }
+                }
+              } catch {
+                // best-effort
+              }
 
-              // Keep it small & safe.
-              const decoded = decodeURIComponent(raw).trim();
-              const sanitized = decoded
-                .replace(/[^\w\-.:]/g, '') // allow a-zA-Z0-9_ - . :
-                .slice(0, 100);
-
-              if (sanitized) {
-                user.utmSource = sanitized;
+              // 3. Fallback to legacy utm_source cookie if firstSource is not yet set
+              if (!user.firstSource && !user.utmSource) {
+                const raw = getCookieFromCtx(ctx, 'utm_source');
+                if (raw && typeof raw === 'string') {
+                  const decoded = decodeURIComponent(raw).trim();
+                  const sanitized = decoded
+                    .replace(/[^\w\-.:]/g, '')
+                    .slice(0, 100);
+                  if (sanitized) {
+                    user.utmSource = sanitized;
+                    user.firstSource = sanitized;
+                  }
+                }
               }
             } catch {
               // best-effort only

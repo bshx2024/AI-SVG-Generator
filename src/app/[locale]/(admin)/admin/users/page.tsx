@@ -103,7 +103,27 @@ export default async function AdminUsersPage({
       { name: 'createdAt', title: t('fields.created_at'), type: 'time' },
       { name: 'ip', title: t('fields.ip'), type: 'copy' },
       { name: 'locale', title: t('fields.locale') },
-      { name: 'utmSource', title: t('fields.utm_source') },
+      {
+        name: 'firstSource',
+        title: t('fields.utm_source'),
+        callback: (item: User) => {
+          const src = item.firstSource || item.utmSource || '-';
+          const landing = item.firstLanding;
+          return (
+            <div className="flex flex-col text-xs">
+              <span className="font-semibold text-indigo-500">{src}</span>
+              {landing && landing !== '/' ? (
+                <span
+                  className="text-muted-foreground truncate max-w-[140px]"
+                  title={landing}
+                >
+                  {landing}
+                </span>
+              ) : null}
+            </div>
+          );
+        },
+      },
       {
         name: 'actions',
         title: t('fields.actions'),
