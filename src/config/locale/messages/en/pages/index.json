@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "AI SVG Generator: Free Text & PNG to SVG (No Sign-Up)",
-    "description": "Free AI SVG Generator: Generate clean, cut-ready vector SVGs from text prompts and PNG images with no sign-up. Zero node soup, closed paths for Cricut & React JSX.",
+    "description": "Free AI SVG Generator: Turn text prompts and PNG images into clean, cut-ready SVGs with no sign-up. Zero node soup, closed paths for Cricut, clean React JSX.",
     "keywords": "ai svg generator, free ai svg generator, ai svg generator free no sign up, png to svg, text to svg, image to vector, cricut svg generator, clean bezier svg"
   },
   "page": {
@@ -185,7 +185,7 @@
         "description": "Real experiences from creators who stopped wasting hours manually fixing node soup and broken cutting paths.",
         "items": [
           {
-            "description": "Every SVG generator I tested previously gave me thousands of clustered anchor points that froze Cricut Design Space and shredded my vinyl. AI SVG Generator gives me clean, closed contours with zero blade stutter. My cut times dropped from 4 minutes to 25 seconds!",
+            "description": "Every SVG generator I tested previously gave me thousands of clustered anchor points that froze Cricut Design Space and shredded my vinyl. This vector engine gives me clean, closed contours with zero blade stutter. My cut times dropped from 4 minutes to 25 seconds!",
             "name": "Sarah Jenkins",
             "role": "Etsy Top-Rated Craft Shop Owner",
             "image": {
@@ -203,7 +203,7 @@
             }
           },
           {
-            "description": "As a frontend React engineer, I used to hate hand-cleaning SVGs exported from Figma or Illustrator. With AI SVG Generator, I can copy semantic JSX with currentColor fill in one click. Lightweight, zero dependencies, and less than 3KB.",
+            "description": "As a frontend React engineer, I used to hate hand-cleaning SVGs exported from Figma or Illustrator. With this platform, I can copy semantic JSX with currentColor fill in one click. Lightweight, zero dependencies, and less than 3KB.",
             "name": "Elena Rostova",
             "role": "Senior UI/UX Engineer & Open-Source Contributor",
             "image": {
@@ -216,7 +216,7 @@
       "stats": {
         "id": "stats",
         "title": "Built for High-Precision Performance",
-        "description": "Numbers that make cutting machines and web browsers happy.",
+        "description": "Numbers that make cutting machines, blade cutters, and web browsers happy.",
         "items": [
           {
             "title": "85%",
@@ -224,7 +224,15 @@
           },
           {
             "title": "100%",
-            "description": "Strictly closed paths with Z-flag"
+            "description": "Strictly closed paths with standard Z-flag"
+          },
+          {
+            "title": "0.2mm",
+            "description": "Engineered multi-mat vinyl trapping bleed"
+          },
+          {
+            "title": "3x",
+            "description": "Longer carbide blade life with smooth curvature"
           },
           {
             "title": "<3 KB",
@@ -239,7 +247,7 @@
       "faq": {
         "id": "faq",
         "title": "Frequently Asked Questions",
-        "description": "Everything you need to know about AI SVG Generator.",
+        "description": "Everything you need to know about vector generation, curve smoothing, node reduction, and machine cut settings.",
         "items": [
           {
             "question": "Is this AI SVG generator really free with no sign up?",
@@ -259,11 +267,11 @@
           },
           {
             "question": "Can I use the exported SVGs commercially on Etsy or Print-on-Demand?",
-            "answer": "Yes. All SVGs generated through AI SVG Generator include full commercial rights for Etsy SVG bundles, physical vinyl crafts, POD apparel (Printful, Printify), and digital client deliverables."
+            "answer": "Yes. All exported vector graphics include full commercial rights for Etsy SVG bundles, physical vinyl crafts, POD apparel (Printful, Printify), and digital client deliverables."
           },
           {
             "question": "Why is this better than Adobe Illustrator Image Trace or Inkscape?",
-            "answer": "Illustrator and Inkscape require heavy manual cleanup with the Pen tool, Pathfinder booleans, and anchor point simplification. AI SVG Generator automates all topological cleanup, path closure, and node economy in under 5 seconds."
+            "answer": "Illustrator and Inkscape require heavy manual cleanup with the Pen tool, Pathfinder booleans, and anchor point simplification. Our automated pipeline performs all topological cleanup, path closure, and node economy in under 5 seconds."
           },
           {
             "question": "What is physical trapping offset and why is it essential for multi-color vinyl crafts?",
@@ -271,7 +279,7 @@
           },
           {
             "question": "How do strictly closed paths (Z-command) protect Cricut blades and laser cutters?",
-            "answer": "CNC cutting machines, Roland plotters, xTool lasers, and Cricut blades require strictly closed geometric loops ending with standard SVG 'Z' or 'z' commands. Unclosed paths or micro self-intersecting loops cause cutting heads to stutter, double-cut the same pixel, or tear delicate cardstock and vinyl. AI SVG Generator guarantees 100% watertight, non-self-intersecting closed contours that allow your machine's toolhead to glide smoothly in one continuous stroke."
+            "answer": "CNC cutting machines, Roland plotters, xTool lasers, and Cricut blades require strictly closed geometric loops ending with standard SVG 'Z' or 'z' commands. Unclosed paths or micro self-intersecting loops cause cutting heads to stutter, double-cut the same pixel, or tear delicate cardstock and vinyl. Our geometry engine guarantees 100% watertight, non-self-intersecting closed contours that allow your machine's toolhead to glide smoothly in one continuous stroke."
           },
           {
             "question": "Can developers copy clean React JSX vector icons directly into TailwindCSS or Shadcn UI?",
